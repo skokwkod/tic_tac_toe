@@ -216,7 +216,7 @@ class _TicTacToeState extends State<TicTacToe> {
               onPressed: () {
                 _clearBoard();
               },
-              child: Text("Jeszcze Raz"),
+              child: Text("Jeszcze Raa"),
               color: Colors.lightGreenAccent,
             )
           ],
