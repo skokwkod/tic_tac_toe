@@ -123,12 +123,14 @@ class _TicTacToeState extends State<TicTacToe> {
         score[0] += 1;
         print(score);
         enabled = false;
+        _showDialog("Krzyżyk");
       }
       if (_checkWinner() == "O") {
         print(_checkWinner());
         score[1] += 1;
         print(score);
         enabled = false;
+        _showDialog("Kółko");
       }
       if (_checkWinner() == "DRAW") {
         enabled = false;
@@ -136,13 +138,44 @@ class _TicTacToeState extends State<TicTacToe> {
     }
   }
 
+  Future<String?> _showDialog(String text){
+    return showDialog<String>(
+        context: context,
+       builder: (BuildContext context) => AlertDialog(
+      title: Text(text),
+         content: Stack(
+           children: [
+             Container(
+               width: 200,
+               height: 200,
+               child: Column(
+                 children: [
+                   Center(
+                     child: CircleAvatar(
+                       child: Text(text =="Kółko"? "0": "X"),
+
+                     ),
+                   ),
+                   MaterialButton(onPressed: (){},
+                   child: Text("Zagraj jeszcze raz"),)
+                 ],
+               ),
+
+             ),
+           ],
+         )
+
+    ),
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
           children: [
-            Expanded(flex: 1, child: SizedBox(height: 10)),
+            SizedBox(height: 20),
             Expanded(
               flex: 1,
               child: Container(
