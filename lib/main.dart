@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/widgets/card_widget.dart';
+import 'package:tic_tac_toe/widgets/custom_dialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -119,168 +120,126 @@ class _TicTacToeState extends State<TicTacToe> {
       });
 
       if (_checkWinner() == "X") {
-        print(_checkWinner());
         score[0] += 1;
-        print(score);
         enabled = false;
-        _showDialog("Krzyżyk");
+        showDialog(
+            context: context,
+            builder: (context) {
+             return ShowCustomDialog(clearBoard: _clearBoard, text: "Krzyżyk");
+            });
       }
       if (_checkWinner() == "O") {
-        print(_checkWinner());
         score[1] += 1;
-        print(score);
         enabled = false;
-        _showDialog("Kółko");
+        showDialog(
+            context: context,
+            builder: (context) {
+              return ShowCustomDialog(clearBoard: _clearBoard, text: "Kółko");
+            });
       }
-      if (_checkWinner() == "DRAW") {
-        enabled = false;
       }
     }
-  }
 
-  Future<String?> _showDialog(String text){
-    return showDialog<String>(
-        context: context,
-       builder: (BuildContext context) => AlertDialog(
-      title: Text(text),
-         content: Stack(
-           children: [
-             Container(
-               width: 200,
-               height: 200,
-               child: Column(
-                 children: [
-                   Center(
-                     child: CircleAvatar(
-                       child: Text(text =="Kółko"? "0": "X"),
 
-                     ),
-                   ),
-                   MaterialButton(onPressed: (){},
-                   child: Text("Zagraj jeszcze raz"),)
-                 ],
-               ),
-
-             ),
-           ],
-         )
-
-    ),
-    );
-  }
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               flex: 1,
-              child: Container(
-                child: Text(
-                  "Wyniki\n" +
-                      score[0].toString() +
-                      " : " +
-                      score[1].toString(),
-                  style: TextStyle(
-                    fontSize: 40,
-                  ),
-                  textAlign: TextAlign.center,
+              child: Text(
+                "Wyniki\n" +
+                    score[0].toString() +
+                    " : " +
+                    score[1].toString(),
+                style: const TextStyle(
+                  fontSize: 40,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
             Expanded(
               flex: 6,
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[0], animation: animated),
-                            onTap: () {
-                              animated = !animated;
-                              _selectedField(0);
-                              print("tap 1");
-                            }),
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[1], animation: animated),
-                            onTap: () {
-                              _selectedField(1);
-                              print("tap 2");
-                            }),
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[2], animation: animated),
-                            onTap: () {
-                              _selectedField(2);
-                              print("tap 3");
-                            }),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[3], animation: animated),
-                            onTap: () {
-                              _selectedField(3);
-                              print("tap 4");
-                            }),
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[4], animation: animated),
-                            onTap: () {
-                              _selectedField(4);
-                              print("tap 5");
-                            }),
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[5], animation: animated),
-                            onTap: () {
-                              _selectedField(5);
-                              print("tap 6");
-                            }),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[6], animation: animated),
-                            onTap: () {
-                              _selectedField(6);
-                              print("tap 7");
-                            }),
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[7], animation: animated),
-                            onTap: () {
-                              _selectedField(7);
-                              print("tap 8");
-                            }),
-                        GestureDetector(
-                            child: CustomCard(
-                                symbol: symbols[8], animation: animated),
-                            onTap: () {
-                              _selectedField(8);
-                              print("tap 9");
-                            }),
-                      ],
-                    ),
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[0]),
+                          onTap: () {
+                            animated = !animated;
+                            _selectedField(0);
+                          }),
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[1]),
+                          onTap: () {
+                            _selectedField(1);
+                          }),
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[2]),
+                          onTap: () {
+                            _selectedField(2);
+                          }),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[3]),
+                          onTap: () {
+                            _selectedField(3);
+                          }),
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[4]),
+                          onTap: () {
+                            _selectedField(4);
+                          }),
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[5]),
+                          onTap: () {
+                            _selectedField(5);
+                          }),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[6]),
+                          onTap: () {
+                            _selectedField(6);
+                          }),
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[7]),
+                          onTap: () {
+                            _selectedField(7);
+                          }),
+                      GestureDetector(
+                          child: CustomCard(
+                              symbol: symbols[8]),
+                          onTap: () {
+                            _selectedField(8);
+                          }),
+                    ],
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_checkWinner() != "" || selectedCount == 9)
               Expanded(
                 flex: 1,
@@ -293,7 +252,7 @@ class _TicTacToeState extends State<TicTacToe> {
                   onPressed: () {
                     _clearBoard();
                   },
-                  child: Text(
+                  child: const Text(
                     "Zagraj Jeszcze Raz",
                     style: TextStyle(
                       fontSize: 30,
@@ -302,8 +261,8 @@ class _TicTacToeState extends State<TicTacToe> {
                 ),
               )
             else
-              Expanded(flex: 1, child: SizedBox(height: 10)),
-            SizedBox(height: 50)
+              const Expanded(flex: 1, child: SizedBox(height: 10)),
+            const SizedBox(height: 50)
           ],
         ),
       ),
